@@ -13,7 +13,7 @@ Commission for Flabort'''
     modId="astralsorcery"
     mandatory=true
     versionRange="[1.16.4-1.13.9,)"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 [[dependencies.naturesstarlight]]
     modId="naturesaura"

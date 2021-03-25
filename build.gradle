@@ -34,6 +34,10 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'info'
 
+            // fixes patchouli mixin issues https://github.com/SpongePowered/Mixin/issues/462#issuecomment-791370319
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
             mods {
                 naturesstarlight {
                     source sourceSets.main
