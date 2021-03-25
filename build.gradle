@@ -1,11 +1,10 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -20,7 +19,7 @@ archivesBaseName = 'NaturesStarlight'
 if (System.getenv('BUILD_NUMBER') != null) {
     version += "." + System.getenv('BUILD_NUMBER')
 }
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
 minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
@@ -83,11 +82,30 @@ sourceSets.main.resources {
 }
 
 repositories {
-    
+    maven {
+        url "https://www.cursemaven.com"
+    }
+    maven {
+        url "https://maven.ellpeck.de"
+    }
+    maven {
+        url = "https://maven.blamejared.com"
+    }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.37'
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+
+    compileOnly fg.deobf('de.ellpeck.naturesaura:NaturesAura:34.1.58:api')
+    runtimeOnly fg.deobf('de.ellpeck.naturesaura:NaturesAura:34.1.58')
+
+    // for some reason the AS maven doesn't want to cooperate and I cannot be bothered so cursemaven it is
+    compile fg.deobf("curse.maven:astral-sorcery-241721:3156477")
+
+    // runtime deps
+    runtimeOnly fg.deobf("curse.maven:curios-309927:3231111")
+    runtimeOnly fg.deobf("curse.maven:observerlib-316833:3162044")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-50")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

@@ -9,3 +9,15 @@ displayName="Nature's Starlight"
 authors="Ellpeck"
 description='''
 Commission for Flabort'''
+[[dependencies.naturesstarlight]]
+    modId="astralsorcery"
+    mandatory=true
+    versionRange="[1.16.4-1.13.9,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.naturesstarlight]]
+    modId="naturesaura"
+    mandatory=true
+    versionRange="[34.1,)"
+    ordering="NONE"
+    side="BOTH"
