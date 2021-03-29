@@ -85,7 +85,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
             this.auraPerTick = builder
                     .comment("Defines the amount of aura that this ritual generates per tick by default")
                     .translation(this.translationKey("range"))
-                    .define("auraPerTick", 5);
+                    .define("auraPerTick", 600);
             builder.pop();
         }
 
