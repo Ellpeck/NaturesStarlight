@@ -24,14 +24,14 @@ public final class Registry {
     public static final Lazy<IWeakConstellation> NARITIS = Lazy.of(() -> {
         IWeakConstellation ret = new Constellation.Weak("naritis", new Color(0x1E891E));
         StarLocation tip = ret.addStar(5, 3);
-        StarLocation tri1 = ret.addStar(14, 13);
+        StarLocation tri1 = ret.addStar(24, 13);
         ret.addConnection(tip, tri1);
-        StarLocation tri2 = ret.addStar(12, 14);
+        StarLocation tri2 = ret.addStar(20, 17);
         ret.addConnection(tri1, tri2);
-        StarLocation tri3 = ret.addStar(17, 18);
+        StarLocation tri3 = ret.addStar(28, 22);
         ret.addConnection(tri2, tri3);
         ret.addConnection(tri3, tri1);
-        StarLocation isolated = ret.addStar(11, 16);
+        StarLocation isolated = ret.addStar(15, 16);
         ret.addConnection(tip, isolated);
         StarLocation line1 = ret.addStar(7, 17);
         ret.addConnection(tip, line1);
