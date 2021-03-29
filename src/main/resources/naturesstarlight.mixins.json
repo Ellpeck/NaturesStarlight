@@ -1,0 +1,10 @@
+{
+    "required": true,
+    "package": "de.ellpeck.naturesstarlight.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "naturesstarlight.refmap.json",
+    "mixins": [
+        "MixinCelestialCrystals"
+    ],
+    "minVersion": "0.8"
+}

@@ -1,4 +1,4 @@
-package de.ellpeck.naturesstarlight;
+package de.ellpeck.naturesstarlight.astral;
 
 import de.ellpeck.naturesaura.api.NaturesAuraAPI;
 import de.ellpeck.naturesaura.api.aura.chunk.IAuraChunk;
@@ -24,7 +24,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
     public static final NaritisConfig CONFIG = new NaritisConfig();
     private static final PlayerAffectionFlags.AffectionFlag AFFECTION = makeAffectionFlag("naritis");
 
-    protected NaritisConstellationEffect(@Nonnull ILocatable origin, @Nonnull IWeakConstellation cst) {
+    public NaritisConstellationEffect(@Nonnull ILocatable origin, @Nonnull IWeakConstellation cst) {
         super(origin, cst);
     }
 
@@ -84,7 +84,6 @@ public class NaritisConstellationEffect extends ConstellationEffect {
             super.createEntries(builder);
             this.auraPerTick = builder
                     .comment("Defines the amount of aura that this ritual generates per tick by default")
-                    .translation(this.translationKey("range"))
                     .define("auraPerTick", 600);
             builder.pop();
         }
@@ -93,5 +92,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
         protected String translationKey(String key) {
             return "config." + this.getFullPath() + '.' + key;
         }
+
     }
+
 }
