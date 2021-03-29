@@ -117,6 +117,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:curios-309927:3231111")
     runtimeOnly fg.deobf("curse.maven:observerlib-316833:3162044")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-50")
+    runtimeOnly fg.deobf("curse.maven:jei-238222:3245079")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

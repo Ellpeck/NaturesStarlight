@@ -6,5 +6,6 @@
     // TODO ritual descriptions
     "naturesstarlight.constellation.naritis.corruption": "",
     "naturesstarlight.constellation.naritis.enchantments": "",
-    "naturesstarlight.constellation.naritis.mantle": ""
+    "naturesstarlight.constellation.naritis.mantle": "",
+    "block.naturesstarlight.crystal_generator": "Crystalline Extractor"
 }

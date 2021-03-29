@@ -1,5 +1,6 @@
 package de.ellpeck.naturesstarlight;
 
+import de.ellpeck.naturesaura.NaturesAura;
 import de.ellpeck.naturesstarlight.astral.NaritisConstellationEffect;
 import de.ellpeck.naturesstarlight.aura.CrystalGeneratorBlock;
 import de.ellpeck.naturesstarlight.aura.CrystalGeneratorTileEntity;
@@ -42,7 +43,7 @@ public final class Registry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, NaturesStarlight.ID);
 
     public static final RegistryObject<Block> CRYSTAL_GENERATOR_BLOCK = BLOCKS.register("crystal_generator", CrystalGeneratorBlock::new);
-    public static final RegistryObject<Item> CRYSTAL_GENERATOR_ITEM = ITEMS.register("crystal_generator", () -> new BlockItem(CRYSTAL_GENERATOR_BLOCK.get(), new Item.Properties().group(ItemGroup.DECORATIONS)));
+    public static final RegistryObject<Item> CRYSTAL_GENERATOR_ITEM = ITEMS.register("crystal_generator", () -> new BlockItem(CRYSTAL_GENERATOR_BLOCK.get(), new Item.Properties().group(NaturesAura.CREATIVE_TAB)));
     public static final RegistryObject<TileEntityType<?>> CRYSTAL_GENERATOR_TILE = TILE_ENTITIES.register("crystal_generator", () -> TileEntityType.Builder.create(CrystalGeneratorTileEntity::new, CRYSTAL_GENERATOR_BLOCK.get()).build(null));
 
     // we need to use a lazy here because the crystal event (which needs this) is fired before the constellation event, bleh
