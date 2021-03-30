@@ -18,6 +18,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
 
 public class NaritisConstellationEffect extends ConstellationEffect {
 
@@ -73,6 +75,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
     public static class NaritisConfig extends Config {
 
         public ForgeConfigSpec.ConfigValue<Integer> auraPerTick;
+        public ForgeConfigSpec.ConfigValue<List<String>> engravingEnchantments;
 
         public NaritisConfig() {
             super("naritis", 10, 5);
@@ -85,6 +88,13 @@ public class NaritisConstellationEffect extends ConstellationEffect {
             this.auraPerTick = builder
                     .comment("Defines the amount of aura that this ritual generates per tick by default")
                     .define("auraPerTick", 600);
+            this.engravingEnchantments = builder
+                    .comment("The enchantments that can be applied using stellar refraction, along with the minimum and maximum applied levels")
+                    .define("engravingEnchantments", Arrays.asList(
+                            "naturesaura:aura_mending, 1, 1",
+                            "minecraft:silk_touch, 1, 1",
+                            "minecraft:efficiency, 5, 6",
+                            "minecraft:thorns, 4, 6"));
             builder.pop();
         }
 
