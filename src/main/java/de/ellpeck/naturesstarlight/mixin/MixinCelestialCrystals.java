@@ -33,7 +33,7 @@ public abstract class MixinCelestialCrystals extends TileEntityTick {
             int toAdd = NaturesStarlight.crystalGeneratorAura.get();
             if (gen.canGenerateRightNow(35, toAdd)) {
                 while (toAdd > 0) {
-                    BlockPos spot = IAuraChunk.getLowestSpot(this.world, genPos, 35,genPos);
+                    BlockPos spot = IAuraChunk.getLowestSpot(this.world, genPos, 35, genPos);
                     toAdd -= IAuraChunk.getAuraChunk(this.world, spot).storeAura(spot, toAdd);
                 }
                 PacketHandler.sendToAllAround(this.world, genPos, 32, new PacketParticles(genPos.getX(), genPos.getY(), genPos.getZ(), PacketParticles.Type.FLOWER_GEN_AURA_CREATION));

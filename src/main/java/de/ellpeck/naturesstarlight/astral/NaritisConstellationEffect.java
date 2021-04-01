@@ -95,7 +95,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
                             "minecraft:silk_touch, 1, 1",
                             "minecraft:efficiency, 5, 6",
                             "minecraft:thorns, 4, 6"));
-            builder.pop();
+            builder.pop(3);
         }
 
         @Override

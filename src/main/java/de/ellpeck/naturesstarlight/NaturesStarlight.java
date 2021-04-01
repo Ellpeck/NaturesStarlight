@@ -1,6 +1,7 @@
 package de.ellpeck.naturesstarlight;
 
 import de.ellpeck.naturesstarlight.astral.NaritisConstellationEffect;
+import de.ellpeck.naturesstarlight.astral.NaritisMantleEffect;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +20,7 @@ public final class NaturesStarlight {
                 .comment("The amount of aura that the crystal generator generates per crystal growth")
                 .define("crystalGeneratorAura", 30000);
         NaritisConstellationEffect.CONFIG.createEntries(builder);
+        NaritisMantleEffect.CONFIG.createEntries(builder);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, builder.build());
 
         Registry.init();

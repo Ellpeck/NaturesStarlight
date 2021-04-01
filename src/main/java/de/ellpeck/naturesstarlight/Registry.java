@@ -2,6 +2,7 @@ package de.ellpeck.naturesstarlight;
 
 import de.ellpeck.naturesaura.NaturesAura;
 import de.ellpeck.naturesstarlight.astral.NaritisConstellationEffect;
+import de.ellpeck.naturesstarlight.astral.NaritisMantleEffect;
 import de.ellpeck.naturesstarlight.astral.perk.AuraProtectionPerk;
 import de.ellpeck.naturesstarlight.astral.perk.ToolIncreasePerk;
 import de.ellpeck.naturesstarlight.aura.CrystalGeneratorBlock;
@@ -12,6 +13,7 @@ import hellfirepvp.astralsorcery.common.constellation.IWeakConstellation;
 import hellfirepvp.astralsorcery.common.constellation.effect.ConstellationEffect;
 import hellfirepvp.astralsorcery.common.constellation.effect.ConstellationEffectProvider;
 import hellfirepvp.astralsorcery.common.constellation.engraving.EngravingEffect;
+import hellfirepvp.astralsorcery.common.constellation.mantle.MantleEffect;
 import hellfirepvp.astralsorcery.common.constellation.star.StarLocation;
 import hellfirepvp.astralsorcery.common.crystal.CrystalProperty;
 import hellfirepvp.astralsorcery.common.crystal.property.PropertyConstellation;
@@ -119,5 +121,10 @@ public final class Registry {
         event.getRegistry().registerAll(
                 toolIncreasePerk = new ToolIncreasePerk(),
                 auraProtectionPerk = new AuraProtectionPerk());
+    }
+
+    @SubscribeEvent
+    public static void registerMantleEffects(RegistryEvent.Register<MantleEffect> event) {
+        event.getRegistry().register(new NaritisMantleEffect(NARITIS.get()));
     }
 }
