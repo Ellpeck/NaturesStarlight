@@ -25,16 +25,14 @@ public class MixinTileEntityNA extends TileEntity {
     @Inject(at = @At("HEAD"), method = "generateAura(I)V", remap = false, cancellable = true)
     private void generateAura(int amount, CallbackInfo callback) {
         TileRitualPedestal pedestal = NaritisConstellationEffect.getLastAffectingPedestal((TileEntityImpl) this.getTileEntity());
-        if (pedestal == null)
+        if (pedestal == null || !this.pos.withinDistance(pedestal.getPos(), pedestal.getRadius()))
             return;
         IWeakConstellation constellation = pedestal.getRitualConstellation();
         if (constellation != Registry.NARITIS.get())
             return;
-        int radius = MathHelper.ceil(pedestal.getRadius());
         int toAdd = MathHelper.ceil(amount * NaritisConstellationEffect.CONFIG.auraGenIncreaseFactor.get());
         while (toAdd > 0) {
-            // we add aura in the area around the ritual pedestal, instead of based on our own position and range
-            BlockPos spot = IAuraChunk.getLowestSpot(this.world, pedestal.getPos(), radius, pedestal.getPos());
+            BlockPos spot = IAuraChunk.getLowestSpot(this.world, this.pos, 35, this.pos);
             toAdd -= IAuraChunk.getAuraChunk(this.world, spot).storeAura(spot, toAdd);
         }
         callback.cancel();
