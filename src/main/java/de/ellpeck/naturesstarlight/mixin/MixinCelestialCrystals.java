@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TileCelestialCrystals.class)
-public abstract class MixinCelestialCrystals extends TileEntityTick {
+public class MixinCelestialCrystals extends TileEntityTick {
 
     public MixinCelestialCrystals(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -31,7 +31,7 @@ public abstract class MixinCelestialCrystals extends TileEntityTick {
             BlockPos genPos = gen.getPos();
 
             int toAdd = NaturesStarlight.crystalGeneratorAura.get();
-            if (gen.canGenerateRightNow(35, toAdd)) {
+            if (gen.canGenerateRightNow(toAdd)) {
                 while (toAdd > 0) {
                     BlockPos spot = IAuraChunk.getLowestSpot(this.world, genPos, 35, genPos);
                     toAdd -= IAuraChunk.getAuraChunk(this.world, spot).storeAura(spot, toAdd);

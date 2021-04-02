@@ -5,7 +5,8 @@
     "refmap": "naturesstarlight.refmap.json",
     "mixins": [
         "MixinArmorNA",
-        "MixinCelestialCrystals"
+        "MixinCelestialCrystals",
+        "MixinTileEntityNA"
     ],
     "minVersion": "0.8"
 }

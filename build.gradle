@@ -111,7 +111,7 @@ dependencies {
 
     // for some reason the AS maven doesn't want to cooperate and I cannot be bothered so cursemaven it is
     compile fg.deobf("curse.maven:astral-sorcery-241721:3156477")
-    compile fg.deobf('de.ellpeck.naturesaura:NaturesAura:34.1.58')
+    compile fg.deobf('de.ellpeck.naturesaura:NaturesAura:34.2.63')
     compile fg.deobf("curse.maven:observerlib-316833:3162044")
 
     // runtime deps

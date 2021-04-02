@@ -1,14 +1,20 @@
 package de.ellpeck.naturesstarlight.astral;
 
+import de.ellpeck.naturesaura.Helper;
 import de.ellpeck.naturesaura.api.NaturesAuraAPI;
 import de.ellpeck.naturesaura.api.aura.chunk.IAuraChunk;
+import de.ellpeck.naturesaura.blocks.tiles.TileEntityImpl;
+import de.ellpeck.naturesstarlight.NaturesStarlight;
 import hellfirepvp.astralsorcery.common.constellation.IMinorConstellation;
 import hellfirepvp.astralsorcery.common.constellation.IWeakConstellation;
 import hellfirepvp.astralsorcery.common.constellation.effect.ConstellationEffect;
 import hellfirepvp.astralsorcery.common.constellation.effect.ConstellationEffectProperties;
 import hellfirepvp.astralsorcery.common.event.PlayerAffectionFlags;
+import hellfirepvp.astralsorcery.common.item.crystal.ItemAttunedCrystalBase;
 import hellfirepvp.astralsorcery.common.tile.TileRitualPedestal;
 import hellfirepvp.astralsorcery.common.util.block.ILocatable;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -35,6 +41,16 @@ public class NaritisConstellationEffect extends ConstellationEffect {
     public void playClientEffect(World world, BlockPos pos, TileRitualPedestal pedestal, float alphaMultiplier, boolean extended) {
         if (world.getGameTime() % 60 != 0)
             return;
+
+        // for some reason you have to do all this to find out if the property is corrupted on the client, ok
+        ConstellationEffectProperties prop = this.createProperties(pedestal.getMirrorCount());
+        ItemStack socket = pedestal.getCurrentCrystal();
+        if (!socket.isEmpty() && socket.getItem() instanceof ItemAttunedCrystalBase) {
+            IMinorConstellation trait = ((ItemAttunedCrystalBase) socket.getItem()).getTraitConstellation(socket);
+            if (trait != null)
+                trait.affectConstellationEffect(prop);
+        }
+
         for (int i = world.rand.nextInt(5) + 5; i >= 0; i--) {
             NaturesAuraAPI.instance().spawnMagicParticle(
                     pos.getX() + 0.5F + world.rand.nextGaussian() * 1.5F,
@@ -43,7 +59,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
                     world.rand.nextGaussian() * 0.01F,
                     world.rand.nextFloat() * 0.04F + 0.02F,
                     world.rand.nextGaussian() * 0.01F,
-                    0x5ccc30, 1F + world.rand.nextFloat() * 1.5F, 80, 0F, false, true);
+                    prop.isCorrupted() ? 0x871c0c : 0x89cc37, 1F + world.rand.nextFloat() * 1.5F, 80, 0F, false, true);
         }
     }
 
@@ -52,12 +68,28 @@ public class NaritisConstellationEffect extends ConstellationEffect {
         if (world.isRemote)
             return false;
         int radius = MathHelper.ceil(properties.getSize());
-        if (IAuraChunk.getAuraInArea(world, pos, radius) >= IAuraChunk.DEFAULT_AURA * 2)
-            return false;
-        int toAdd = CONFIG.auraPerTick.get();
-        while (toAdd > 0) {
-            BlockPos spot = IAuraChunk.getLowestSpot(world, pos, radius, pos);
-            toAdd -= IAuraChunk.getAuraChunk(world, spot).storeAura(spot, toAdd);
+        if (properties.isCorrupted()) {
+            // drain aura
+            BlockPos spot = IAuraChunk.getHighestSpot(world, pos, radius, pos);
+            IAuraChunk.getAuraChunk(world, spot).drainAura(spot, CONFIG.auraDrainPerTick.get());
+
+            // notify aura generators
+            TileRitualPedestal pedestal = this.getPedestal(world, pos);
+            if (pedestal != null) {
+                Helper.getTileEntitiesInArea(world, pos, radius, tile -> {
+                    if ((tile instanceof TileEntityImpl))
+                        setLastAffectingPedestal((TileEntityImpl) tile, pedestal);
+                    return false;
+                });
+            }
+        } else {
+            if (IAuraChunk.getAuraInArea(world, pos, radius) >= IAuraChunk.DEFAULT_AURA * 2)
+                return false;
+            int toAdd = CONFIG.auraPerTick.get();
+            while (toAdd > 0) {
+                BlockPos spot = IAuraChunk.getLowestSpot(world, pos, radius, pos);
+                toAdd -= IAuraChunk.getAuraChunk(world, spot).storeAura(spot, toAdd);
+            }
         }
         return true;
     }
@@ -72,9 +104,24 @@ public class NaritisConstellationEffect extends ConstellationEffect {
         return AFFECTION;
     }
 
+    public static TileRitualPedestal getLastAffectingPedestal(TileEntityImpl tile) {
+        long packedPos = tile.getTileData().getLong(NaturesStarlight.ID + ":affecting_pedestal");
+        if (packedPos == 0)
+            return null;
+        BlockPos pos = BlockPos.fromLong(packedPos);
+        TileEntity ret = tile.getWorld().getTileEntity(pos);
+        return ret instanceof TileRitualPedestal ? (TileRitualPedestal) ret : null;
+    }
+
+    public static void setLastAffectingPedestal(TileEntityImpl tile, TileRitualPedestal affecting) {
+        tile.getTileData().putLong(NaturesStarlight.ID + ":affecting_pedestal", affecting.getPos().toLong());
+    }
+
     public static class NaritisConfig extends Config {
 
         public ForgeConfigSpec.ConfigValue<Integer> auraPerTick;
+        public ForgeConfigSpec.ConfigValue<Integer> auraDrainPerTick;
+        public ForgeConfigSpec.ConfigValue<Float> auraGenIncreaseFactor;
         public ForgeConfigSpec.ConfigValue<List<String>> engravingEnchantments;
 
         public NaritisConfig() {
@@ -88,6 +135,12 @@ public class NaritisConstellationEffect extends ConstellationEffect {
             this.auraPerTick = builder
                     .comment("Defines the amount of aura that this ritual generates per tick by default")
                     .define("auraPerTick", 600);
+            this.auraDrainPerTick = builder
+                    .comment("Defines the amount of aura the corrupted version of this ritual drains per tick by default")
+                    .define("auraDrainPerTick", 300);
+            this.auraGenIncreaseFactor = builder
+                    .comment("Defines the factor that the corrupted version of this ritual increases aura generation in the area by")
+                    .define("auraGenIncreaseFactor", 1.5F);
             this.engravingEnchantments = builder
                     .comment("The enchantments that can be applied using stellar refraction, along with the minimum and maximum applied levels")
                     .define("engravingEnchantments", Arrays.asList(
