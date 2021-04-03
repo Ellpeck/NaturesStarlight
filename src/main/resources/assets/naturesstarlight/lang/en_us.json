@@ -9,5 +9,6 @@
     "block.naturesstarlight.crystal_generator": "Crystalline Extractor",
     "perk.attribute.naturesstarlight.aura_protection.name": "Breathless protection",
     "perk.attribute.naturesstarlight.tool_increase.name": "power (around Aura)",
-    "crystal.property.astralsorcery.constellation.naritis.name": "Focus: Naritis"
+    "crystal.property.astralsorcery.constellation.naritis.name": "Focus: Naritis",
+    "item.naturesaura.effect_powder.naturesstarlight:starlight_increase": "Powder of Starry Skies"
 }

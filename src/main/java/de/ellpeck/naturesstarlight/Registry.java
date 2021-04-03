@@ -1,12 +1,14 @@
 package de.ellpeck.naturesstarlight;
 
 import de.ellpeck.naturesaura.NaturesAura;
+import de.ellpeck.naturesaura.api.NaturesAuraAPI;
 import de.ellpeck.naturesstarlight.astral.NaritisConstellationEffect;
 import de.ellpeck.naturesstarlight.astral.NaritisMantleEffect;
 import de.ellpeck.naturesstarlight.astral.perk.AuraProtectionPerk;
 import de.ellpeck.naturesstarlight.astral.perk.ToolIncreasePerk;
 import de.ellpeck.naturesstarlight.aura.CrystalGeneratorBlock;
 import de.ellpeck.naturesstarlight.aura.CrystalGeneratorTileEntity;
+import de.ellpeck.naturesstarlight.aura.StarlightIncreaseEffect;
 import hellfirepvp.astralsorcery.common.constellation.Constellation;
 import hellfirepvp.astralsorcery.common.constellation.IConstellation;
 import hellfirepvp.astralsorcery.common.constellation.IWeakConstellation;
@@ -79,6 +81,10 @@ public final class Registry {
         TILE_ENTITIES.register(bus);
         BLOCKS.register(bus);
         ITEMS.register(bus);
+
+        NaturesAuraAPI.DRAIN_SPOT_EFFECTS.put(StarlightIncreaseEffect.NAME, StarlightIncreaseEffect::new);
+        NaturesAuraAPI.EFFECT_POWDERS.put(StarlightIncreaseEffect.NAME, 0x084a8c);
+
     }
 
     @SubscribeEvent

@@ -6,7 +6,8 @@
     "mixins": [
         "MixinArmorNA",
         "MixinCelestialCrystals",
-        "MixinTileEntityNA"
+        "MixinTileEntityNA",
+        "MixinSkyCollectionHelper"
     ],
     "minVersion": "0.8"
 }

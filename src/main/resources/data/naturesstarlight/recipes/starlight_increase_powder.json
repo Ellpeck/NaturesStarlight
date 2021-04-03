@@ -1,0 +1,28 @@
+{
+    "type": "naturesaura:tree_ritual",
+    "ingredients": [
+        {
+            "item": "naturesaura:gold_powder"
+        },
+        {
+            "item": "naturesaura:gold_powder"
+        },
+        {
+            "item": "astralsorcery:illumination_powder"
+        },
+        {
+            "item": "astralsorcery:aquamarine"
+        }
+    ],
+    "sapling": {
+        "item": "minecraft:oak_sapling"
+    },
+    "output": {
+        "nbt": {
+            "effect": "naturesstarlight:starlight_increase"
+        },
+        "item": "naturesaura:effect_powder",
+        "count": 8
+    },
+    "time": 400
+}
