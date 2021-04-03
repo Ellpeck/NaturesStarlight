@@ -33,7 +33,8 @@ public class StarlightIncreaseEffect implements IDrainSpotEffect {
 
     @Override
     public void update(World world, Chunk chunk, IAuraChunk auraChunk, BlockPos pos, Integer spot) {
-        auraChunk.drainAura(pos, NaturesStarlight.starlightEffectAuraDrain.get());
+        if (getCurrentFactor(world, pos) > 0)
+            auraChunk.drainAura(pos, NaturesStarlight.starlightEffectAuraDrain.get());
     }
 
     @Override
