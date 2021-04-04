@@ -59,10 +59,10 @@ public class NaritisMantleEffect extends MantleEffect {
             super.createEntries(builder);
             this.chargeToAuraRatio = builder
                     .comment("The amount of aura that one unit of charge creates")
-                    .define("chargeToAuraRatio", 10F);
+                    .define("chargeToAuraRatio", 0.01F);
             this.chargeConvertedPerSecond = builder
                     .comment("The amount of charge that is converted into aura per second")
-                    .define("chargeConvertedPerSecond", 50F);
+                    .define("chargeConvertedPerSecond", 6000F);
             builder.pop(3);
         }
 

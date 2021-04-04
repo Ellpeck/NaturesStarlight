@@ -23,10 +23,10 @@ public final class NaturesStarlight {
                 .define("crystalGeneratorAura", 30000);
         starlightEffectAddedStarlight = builder
                 .comment("The maximum amount of starlight that is added around the powder of starry skies")
-                .define("starlightEffectAddedStarlight", 0.5F);
+                .define("starlightEffectAddedStarlight", 0.6F);
         starlightEffectAuraDrain = builder
                 .comment("The amount of aura that the powder of starry skies drains per second")
-                .define("starlightEffectAuraDrain", 250);
+                .define("starlightEffectAuraDrain", 400);
         NaritisConstellationEffect.CONFIG.createEntries(builder);
         NaritisMantleEffect.CONFIG.createEntries(builder);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, builder.build());

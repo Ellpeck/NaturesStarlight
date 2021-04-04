@@ -125,7 +125,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
         public ForgeConfigSpec.ConfigValue<List<String>> engravingEnchantments;
 
         public NaritisConfig() {
-            super("naritis", 10, 5);
+            super("naritis", 5, 2.5);
         }
 
         @Override
@@ -134,13 +134,13 @@ public class NaritisConstellationEffect extends ConstellationEffect {
             super.createEntries(builder);
             this.auraPerTick = builder
                     .comment("Defines the amount of aura that this ritual generates per tick by default")
-                    .define("auraPerTick", 600);
+                    .define("auraPerTick", 350);
             this.auraDrainPerTick = builder
                     .comment("Defines the amount of aura the corrupted version of this ritual drains per tick by default")
-                    .define("auraDrainPerTick", 300);
+                    .define("auraDrainPerTick", 75);
             this.auraGenIncreaseFactor = builder
                     .comment("Defines the factor that the corrupted version of this ritual increases aura generation in the area by")
-                    .define("auraGenIncreaseFactor", 1.5F);
+                    .define("auraGenIncreaseFactor", 2.5F);
             this.engravingEnchantments = builder
                     .comment("The enchantments that can be applied using stellar refraction, along with the minimum and maximum applied levels")
                     .define("engravingEnchantments", Arrays.asList(
