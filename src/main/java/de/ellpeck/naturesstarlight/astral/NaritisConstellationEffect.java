@@ -122,7 +122,7 @@ public class NaritisConstellationEffect extends ConstellationEffect {
         public ForgeConfigSpec.ConfigValue<Integer> auraPerTick;
         public ForgeConfigSpec.ConfigValue<Integer> auraDrainPerTick;
         public ForgeConfigSpec.ConfigValue<Float> auraGenIncreaseFactor;
-        public ForgeConfigSpec.ConfigValue<List<String>> engravingEnchantments;
+        public ForgeConfigSpec.ConfigValue<List<? extends String>> engravingEnchantments;
 
         public NaritisConfig() {
             super("naritis", 5, 2.5);
@@ -143,11 +143,12 @@ public class NaritisConstellationEffect extends ConstellationEffect {
                     .define("auraGenIncreaseFactor", 2.5F);
             this.engravingEnchantments = builder
                     .comment("The enchantments that can be applied using stellar refraction, along with the minimum and maximum applied levels")
-                    .define("engravingEnchantments", Arrays.asList(
+                    .defineList("engravingEnchantments", Arrays.asList(
                             "naturesaura:aura_mending, 1, 1",
                             "minecraft:silk_touch, 1, 1",
                             "minecraft:efficiency, 5, 6",
-                            "minecraft:thorns, 4, 6"));
+                            "minecraft:thorns, 4, 6"
+                    ), s -> true);
             builder.pop(3);
         }
 
