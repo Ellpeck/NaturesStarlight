@@ -108,6 +108,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // for some reason the AS maven doesn't want to cooperate and I cannot be bothered so cursemaven it is
     compile fg.deobf("curse.maven:astral-sorcery-241721:3156477")
